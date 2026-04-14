@@ -46,5 +46,13 @@ public class NeuralNet {
         }
     }
 
+    public List<Perceptron> getPerceptrons(){
+        return perceptrons;
+    }
+
+    public List<String> getLanguages(){
+        return languages;
+    }
+
 
 }
