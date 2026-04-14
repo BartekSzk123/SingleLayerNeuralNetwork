@@ -19,6 +19,7 @@ public class Perceptron {
         }
 
         this.threshold = this.threshold - updateFactor;
+        normalizeWeights();
     }
 
     public int Output(double[] inputs) {
@@ -34,6 +35,14 @@ public class Perceptron {
             return 0;
         }
 
+    }
+
+    public double Score(double[] inputs) {
+        double result = 0;
+        for (int i = 0; i < inputs.length; i++) {
+            result += inputs[i] * this.weights[i];
+        }
+        return result;
     }
 
     public void normalizeWeights() {
