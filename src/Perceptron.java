@@ -37,7 +37,7 @@ public class Perceptron {
 
     }
 
-    public double Score(double[] inputs) {
+    public double score(double[] inputs) {
         double result = 0;
         for (int i = 0; i < inputs.length; i++) {
             result += inputs[i] * this.weights[i];
