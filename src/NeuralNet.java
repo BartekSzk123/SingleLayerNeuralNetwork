@@ -23,6 +23,7 @@ public class NeuralNet {
 
         for(int i = 0; i < perceptrons.size(); i++){
             Perceptron perceptron = perceptrons.get(i);
+            perceptron.normalizeWeights();
             double score = perceptron.score(inputs);
 
             if(score > maxScore){

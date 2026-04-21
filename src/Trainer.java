@@ -1,5 +1,4 @@
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Trainer {
 
@@ -15,33 +14,35 @@ public class Trainer {
 
 
     public void learn() {
-
-        List <Perceptron> perceptrons = neuralNet.getPerceptrons();
+        List<Perceptron> perceptrons = neuralNet.getPerceptrons();
         List<String> languages = neuralNet.getLanguages();
 
-        for(int j = 0; j < 50; j++){
-            for (String language : texts.keySet()) {
 
-                for (String text : texts.get(language)) {
-                    double[] input = TextProcessor.processText(text);
-
-                    for (int i = 0; i < perceptrons.size(); i++) {
-
-                        Perceptron perceptron = perceptrons.get(i);
-
-                        int d = languages.get(i).equals(language) ? 1 : 0;
-                        int y = perceptron.Output(input);
-
-                        if(d != y){
-                            perceptron.deltaRule(input,d,y,learningRate);
-                        }
-
-                    }
-
-                }
+        List<Map.Entry<String, String>> allExamples = new ArrayList<>();
+        for (String language : texts.keySet()) {
+            for (String text : texts.get(language)) {
+                allExamples.add(Map.entry(language, text));
             }
         }
 
+        Random rand = new Random();
+        for (int j = 0; j < 500; j++) {
+            Collections.shuffle(allExamples, rand);
+
+            for (Map.Entry<String, String> example : allExamples) {
+                String language = example.getKey();
+                double[] input = TextProcessor.processText(example.getValue());
+
+                for (int i = 0; i < perceptrons.size(); i++) {
+                    Perceptron perceptron = perceptrons.get(i);
+                    int d = languages.get(i).equals(language) ? 1 : 0;
+                    int y = perceptron.Output(input);
+                    if (d != y) {
+                        perceptron.deltaRule(input, d, y, learningRate);
+                    }
+                }
+            }
+        }
     }
 
 }

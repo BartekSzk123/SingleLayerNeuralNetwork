@@ -19,7 +19,6 @@ public class Perceptron {
         }
 
         this.threshold = this.threshold - updateFactor;
-        normalizeWeights();
     }
 
     public int Output(double[] inputs) {
